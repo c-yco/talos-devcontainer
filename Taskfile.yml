@@ -1,0 +1,30 @@
+# https://taskfile.dev
+# yaml-language-server: $schema=https://taskfile.dev/schema.json
+
+version: '3'
+
+vars:
+  GREETING: Hello, World!
+
+includes: 
+  controlplane:
+    taskfile: ./controlplane/Taskfile.yml
+    dir: ./controlplane
+tasks:
+  # default:
+  #   cmds:
+  #     - echo "{{.GREETING}}"
+  #   silent: true
+  setup:controlplane:
+    cmds:
+      - echo "Setup controlplane talos cluster"
+      - task: controlplane:cluster:create
+      - echo "Install ArgoCD"
+      - task: controlplane:argocd:install
+      
+  docker:prune:
+    cmds:
+      - docker container prune
+      - docker volume prune
+      - docker network prune
+      - docker image prune

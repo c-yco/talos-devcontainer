@@ -1,0 +1,43 @@
+# https://taskfile.dev
+# yaml-language-server: $schema=https://taskfile.dev/schema.json
+
+version: '3'
+
+vars:
+   CLUSTER_NAME: controlplane
+
+includes: 
+  argocd:
+    taskfile: ./argocd/Taskfile.yml
+    dir: ./argocd
+
+tasks:
+ 
+  cluster:create:
+    label: Talos create cluster
+    desc: Create a new talos cluster for the controlplane
+    cmds:
+      - talosctl cluster create --name {{ .CLUSTER_NAME }} --context controlplane
+
+  cluster:destroy:
+    label: Talos delete cluster
+    desc: Delete talos cluster for the controlplane
+    cmds:
+      - talosctl cluster destroy --name {{ .CLUSTER_NAME }} --context controlplane
+
+
+  cluster:show:
+    cmds:
+      - pwd
+      - talosctl cluster show --name {{ .CLUSTER_NAME }} --context controlplane
+    desc: Show controlplane cluster
+  
+
+  traefik:install:
+    desc: Install traefik with helm, setup gateway crds
+    cmds:
+      - helm repo add traefik https://traefik.github.io/charts
+      - helm repo update
+      - kubectl create namespace traefik
+      - helm install traefik traefik/traefik --namespace=traefik 
+

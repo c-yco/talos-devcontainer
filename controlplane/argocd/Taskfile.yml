@@ -1,0 +1,13 @@
+# https://taskfile.dev
+# yaml-language-server: $schema=https://taskfile.dev/schema.json
+version: '3'
+tasks:
+  install:
+   
+    cmds:
+      - pwd
+      - helm repo add argo https://argoproj.github.io/argo-helm
+      - helm install my-argo-cd argo/argo-cd -f values.yml --create-namespace --namespace argocd
+  admin_pw:
+    cmds: 
+      - kubectl -n default get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
