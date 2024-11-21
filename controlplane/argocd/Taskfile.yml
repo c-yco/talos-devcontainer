@@ -10,4 +10,4 @@ tasks:
       - helm install my-argo-cd argo/argo-cd -f values.yml --create-namespace --namespace argocd
   admin_pw:
     cmds: 
-      - kubectl -n default get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
+      - "kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath=\"{.data.password}\" | echo ArgoCD Password: $(base64 -d) \n"
