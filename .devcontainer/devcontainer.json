@@ -50,5 +50,10 @@
 				"paulvarache.vscode-taskfile"
 			]
 		}
+	},
+	"portsAttributes": {
+		"8443": {
+			"label": "Traefik Ingress on Controlplane"
+		}
 	}
 }
