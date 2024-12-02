@@ -40,7 +40,7 @@ crds:
 global:
   # -- Default domain used by all components
   ## Used for ingresses, certificates, SSO, notifications, etc.
-  domain: argocd.example.com
+  domain: argo.k8.localhost
 
   # -- Runtime class name for all components
   runtimeClassName: ""
@@ -272,7 +272,7 @@ configs:
     ## Server properties
     # -- Run server without TLS
     ## NOTE: This value should be set when you generate params by other means as it changes ports used by ingress template.
-    server.insecure: false
+    server.insecure: true
     # -- Value for base href in index.html. Used if Argo CD is running behind reverse proxy under subpath different from /
     server.basehref: /
     # -- Used if Argo CD is running behind reverse proxy under subpath different from /
@@ -2199,7 +2199,7 @@ server:
   # Argo CD server ingress configuration
   ingress:
     # -- Enable an ingress resource for the Argo CD server
-    enabled: false
+    enabled: true
     # -- Specific implementation for ingress controller. One of `generic`, `aws` or `gke`
     ## Additional configuration might be required in related configuration sections
     controller: generic
@@ -2212,7 +2212,7 @@ server:
       # nginx.ingress.kubernetes.io/ssl-passthrough: "true"
 
     # -- Defines which ingress controller will implement the resource
-    ingressClassName: ""
+    ingressClassName: "traefik"
 
     # -- Argo CD server hostname
     # @default -- `""` (defaults to global.domain)
@@ -3213,7 +3213,7 @@ notifications:
   logFormat: ""
   # -- Notifications controller log level. One of: `debug`, `info`, `warn`, `error`
   # @default -- `""` (defaults to global.logging.level)
-  logLevel: ""
+  logLevel: "debug"
 
   # -- Extra arguments to provide to the notifications controller
   extraArgs: []

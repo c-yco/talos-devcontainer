@@ -6,7 +6,7 @@ chmod +x /usr/local/bin/talosctl
 ## kubens & kubectx
 wget -O  /usr/local/bin/kubectx https://github.com/ahmetb/kubectx/releases/download/v0.9.5/kubectx
 chmod +x /usr/local/bin/kubectx
-wget -O  /usr/local/bin/kubectx https://github.com/ahmetb/kubectx/releases/download/v0.9.5/kubens
+wget -O  /usr/local/bin/kubens https://github.com/ahmetb/kubectx/releases/download/v0.9.5/kubens
 chmod +x /usr/local/bin/kubens
 ## STACKIT cli
 curl https://packages.stackit.cloud/keys/key.gpg | sudo gpg --dearmor -o /usr/share/keyrings/stackit.gpg

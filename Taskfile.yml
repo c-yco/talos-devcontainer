@@ -21,10 +21,20 @@ tasks:
       - task: controlplane:cluster:create
       - echo "Install ArgoCD"
       - task: controlplane:argocd:install
+      - task: controlplane:traefik:install
       
-  docker:prune:
+  setup:prune:
     cmds:
+      - cmd: docker stop $(docker ps -a -q)
+        ignore_error: true
       - docker container prune
       - docker volume prune
       - docker network prune
       - docker image prune
+      - rm ~/.kube/config 
+      - rm ~/.talos/config 
+  node1:create:
+    label: Talos create cluster
+    desc: Create a new talos cluster for the controlplane
+    cmds:
+      - talosctl cluster create --name node1 --context node1 --workers 0 --cidr 10.5.1.0/24 --exposed-ports 10443:30443/tcp,11443:9443/tcp

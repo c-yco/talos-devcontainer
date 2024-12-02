@@ -1,0 +1,15 @@
+# https://taskfile.dev
+# yaml-language-server: $schema=https://taskfile.dev/schema.json
+
+version: '3'
+
+# vars:
+#    CLUSTER_NAME: controlplane
+
+
+
+tasks:
+  install:
+    cmds:
+      - helm repo add traefik https://traefik.github.io/charts
+      - helm upgrade --install -f values.yml traefik traefik/traefik
